@@ -89,19 +89,19 @@ const flappyBird = {
 
 //pagina inicial
 const menssagemGetReady = {
-    sX: 134,
-    sY: 0,
-    w: 174,
-    h: 152,
+    spriteX: 134,
+    spriteY: 0,
+    largura: 174,
+    altura: 152,
     x: (canvas.width / 2) - 174 / 2,
     y: 50,
     desenha() {
         contexto.drawImage(
             sprites,
-            mensagemGetReady.sX, mensagemGetReady.sY,
-            mensagemGetReady.w, mensagemGetReady.h,
-            mensagemGetReady.x, mensagemGetReady.y,
-            mensagemGetReady.w, mensagemGetReady.h, 
+            menssagemGetReady.spriteX, menssagemGetReady.spriteY,
+            menssagemGetReady.largura, menssagemGetReady.altura,
+            menssagemGetReady.x, menssagemGetReady.y,
+            menssagemGetReady.largura, menssagemGetReady.altura, 
         );
     },
 };
@@ -120,7 +120,6 @@ const Telas = {
             chao.desenha();
             flappyBird.desenha();
             menssagemGetReady.desenha();
-
         },
         click() {
             mudaParaTela(Telas.JOGO);
