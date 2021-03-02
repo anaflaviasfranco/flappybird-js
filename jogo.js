@@ -1,4 +1,5 @@
 
+let frames = 0;
 const som_HIT = new Audio();
 som_HIT.src = './efeitos/hit.wav';
 
@@ -116,10 +117,29 @@ function criaFlappyBird() {
         flappyBird.velocidade = flappyBird.velocidade + flappyBird.gravidade;
         flappyBird.y = flappyBird.y + flappyBird.velocidade;
     },
+    movimentos: [
+      {spriteX: 0, spriteY: 0, }, // asa pra cima
+      {spriteX: 0, spriteY: 26, }, // asa pra cima
+      {spriteX: 0, spriteY: 52, }, // asa pra baixo
+    ],
+    frameAtual: 0,
+    atualizaFrameAtual(){
+      const intervaloDeFrames = 10;
+      const passouOIntervalo = frames % intervaloDeFrames === 0;
+
+      if (passouOIntervalo) {
+        const baseDoIncremento = 1;
+        const incremento = baseDoIncremento +flappyBird.frameAtual;
+        const baseRepeticao = flappyBird.movimentos.length;
+        flappyBird.frameAtual = incremento % baseRepeticao
+      }
+    },
     desenha() {
+      flappyBird.atualizaFrameAtual();
+      const { spriteX, spriteY } = flappyBird.movimentos[flappyBird.frameAtual];
       contexto.drawImage(
         sprites,
-        flappyBird.spriteX, flappyBird.spriteY, //sprite x, sprite y
+        spriteX, spriteY, // sprite x e sprite y
         flappyBird.largura, flappyBird.altura, //tamanho do recorte na sprite (tamanho apenas da area desejada, altura e largura)
         flappyBird.x, flappyBird.y, //posiçao dentro do canvas
         flappyBird.largura, flappyBird.altura, //tamanho no canvas
@@ -206,6 +226,7 @@ function loop() {
   telaAtiva.desenha();
   telaAtiva.atualiza();
 
+  frames = frames + 1;
   requestAnimationFrame(loop);
 }
 
